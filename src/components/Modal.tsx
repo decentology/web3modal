@@ -119,6 +119,7 @@ interface IModalProps {
   onClose: SimpleFunction;
   resetState: SimpleFunction;
   lightboxOpacity: number;
+  show: boolean;
 }
 
 interface IModalState {
@@ -134,9 +135,6 @@ const INITIAL_STATE: IModalState = {
 export class Modal extends React.Component<IModalProps, IModalState> {
   constructor(props: IModalProps) {
     super(props);
-    window.updateWeb3Modal = async (state: IModalState) => {
-      this.setState(state);
-    };
   }
   public static propTypes = {
     userOptions: PropTypes.object.isRequired,
@@ -153,6 +151,9 @@ export class Modal extends React.Component<IModalProps, IModalState> {
   };
 
   public componentDidUpdate(prevProps: IModalProps, prevState: IModalState) {
+    if (prevState.show != this.props.show) {
+      this.setState({show: this.props.show})
+    }
     if (prevState.show && !this.state.show) {
       this.props.resetState();
     }

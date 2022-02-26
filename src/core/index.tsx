@@ -153,6 +153,7 @@ export class Core {
         themeColors={this.themeColors}
         userOptions={this.userOptions}
         onClose={this.onClose}
+				show={this.show}
         resetState={this.resetState}
         lightboxOpacity={this.lightboxOpacity}
       />,
@@ -198,7 +199,7 @@ export class Core {
     Object.keys(state).forEach(key => {
       this[key] = state[key];
     });
-    await window.updateWeb3Modal(state);
+    	this.renderModal();
   };
 
   private resetState = () => this.updateState({ ...INITIAL_STATE });
